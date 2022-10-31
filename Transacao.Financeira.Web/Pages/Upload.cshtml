@@ -1,0 +1,66 @@
+﻿@page
+@model Transacao.Financeira.Web.Pages.UploadModel
+@{
+
+}
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.Raw(@Model.MensagemRetorno)
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h1 class="display-5">
+            Importar transações
+        </h1>
+    </div>
+    <div class="form-group">
+        <input type="file" asp-for="UploadFile" accept=".csv" />
+    </div>
+    <div class="form-group">
+        <small>Selecione o arquivo pra realizar o upload</small>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Importar</button>
+
+    <hr />
+
+    <div class="text-center">
+        <h1 class="display-5">
+            Importações realizadas
+        </h1>
+    </div>
+
+    @if (Model.ListaTransacoes != null && Model.ListaTransacoes.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Data Transações</th>
+                    <th scope="col">Data Importação</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach(var transacao in Model.ListaTransacoes)
+                {   
+                    <tr>
+                        <td>@transacao.Data_Hora_TransacaoDate.ToShortDateString()</td>
+                        <td>@transacao.Data_Hora_Importacao</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else{
+        <div class="text-center">
+            <small>Não existem importações realizadas</small>
+        </div>
+    }
+
+</form>
